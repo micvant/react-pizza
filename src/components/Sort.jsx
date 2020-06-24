@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Sort = (props) => {
+const Sort = ({ items }) => {
+  const [itemActive, setItemActive] = useState(null);
+  const onSelectItem = (index) => {
+    setItemActive(index);
+  };
   return (
     <div className="sort">
       <div className="sort__label">
@@ -20,9 +24,15 @@ const Sort = (props) => {
       </div>
       <div className="sort__popup">
         <ul>
-          <li className="active">популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
+          {items &&
+            items.map((name, index) => (
+              <li
+                key={`${name}_${index}`}
+                onClick={() => onSelectItem(index)}
+                className={itemActive === index ? 'active' : ''}>
+                {name}
+              </li>
+            ))}
         </ul>
       </div>
     </div>
