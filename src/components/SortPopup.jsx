@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 
-const Sort = ({ items }) => {
+const SortPopup = ({ items }) => {
   const [itemActive, setItemActive] = useState(null);
+  const [visiblePopup, setVisiblePopup] = useState(false);
+
   const onSelectItem = (index) => {
     setItemActive(index);
   };
@@ -20,23 +22,25 @@ const Sort = ({ items }) => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>популярности</span>
+        <span onClick={() => setVisiblePopup(!visiblePopup)}>популярности</span>
       </div>
-      <div className="sort__popup">
-        <ul>
-          {items &&
-            items.map((name, index) => (
-              <li
-                key={`${name}_${index}`}
-                onClick={() => onSelectItem(index)}
-                className={itemActive === index ? 'active' : ''}>
-                {name}
-              </li>
-            ))}
-        </ul>
-      </div>
+      {visiblePopup && (
+        <div className="sort__popup">
+          <ul>
+            {items &&
+              items.map((name, index) => (
+                <li
+                  key={`${name}_${index}`}
+                  onClick={() => onSelectItem(index)}
+                  className={itemActive === index ? 'active' : ''}>
+                  {name}
+                </li>
+              ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
 
-export default Sort;
+export default SortPopup;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sort, PizzaBlock, Categories } from './index';
+import { SortPopup, PizzaBlock, Categories } from './index';
 
 const Content = (props) => {
   return (
@@ -8,7 +8,7 @@ const Content = (props) => {
         <div className="content__top">
           <Categories
             items={['Мясная', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']}></Categories>
-          <Sort items={['популярности', 'цене', 'алфавиту']}></Sort>
+          <SortPopup items={['популярности', 'цене', 'алфавиту']}></SortPopup>
         </div>
         <h2 className="content__title">Все пиццы</h2>
         <div className="content__items">

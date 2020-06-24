@@ -15,9 +15,9 @@ export {
 }
 from './Categories';
 export {
-    default as Sort
+    default as SortPopup
 }
-from './Sort';
+from './SortPopup';
 export {
     default as Content
 }
