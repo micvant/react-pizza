@@ -1,16 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const SortPopup = ({ items }) => {
-  const [itemActive, setItemActive] = useState(null);
-  const [visiblePopup, setVisiblePopup] = useState(false);
+  const [itemActive, setItemActive] = React.useState(0);
+  const [visiblePopup, setVisiblePopup] = React.useState(false);
+  const sortRef = React.useRef();
+  let activeLavel = items[itemActive];
 
+  const onSelectVisible = () => {
+    setVisiblePopup(!visiblePopup);
+  };
   const onSelectItem = (index) => {
     setItemActive(index);
+    setTimeout(() => {
+      setVisiblePopup(false);
+    }, 250);
   };
+
+  React.useEffect(() => {
+    document.body.addEventListener('click', handleOutside);
+  }, []);
+
+  const handleOutside = (el) => {
+    if (!el.path.includes(sortRef.current)) {
+      setVisiblePopup(false);
+    }
+  };
+
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
+          className={visiblePopup ? 'rotated' : ''}
           width="10"
           height="6"
           viewBox="0 0 10 6"
@@ -22,7 +42,7 @@ const SortPopup = ({ items }) => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setVisiblePopup(!visiblePopup)}>популярности</span>
+        <span onClick={onSelectVisible}>{activeLavel}</span>
       </div>
       {visiblePopup && (
         <div className="sort__popup">

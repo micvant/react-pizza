@@ -18,10 +18,7 @@ export {
     default as SortPopup
 }
 from './SortPopup';
-export {
-    default as Content
-}
-from './Content';
+
 export {
     default as Header
 }
