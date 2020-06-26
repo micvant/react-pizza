@@ -1,19 +1,52 @@
 import React from 'react';
+import classNames from 'classnames';
+// Либа для проверки типов
+import PropTypes from 'prop-types';
 
-const PizzaBlock = ({ name, path, price }) => {
+const PizzaBlock = ({ imageUrl, name, types, sizes, price }) => {
+  const [itemActiveSize, setItemActiveSize] = React.useState(0);
+  const [itemActiveTypes, setItemActiveTypes] = React.useState(types[0]);
+  const typesName = ['Тонкое', 'Традиционное'];
+  const availableSizes = [26, 30, 40];
+
+  const setSelectItemTypes = (index) => {
+    setItemActiveTypes(index);
+  };
+
+  const setSelectItemSize = (index) => {
+    setItemActiveSize(index);
+  };
   return (
     <div className="pizza-block">
-      <img className="pizza-block__image" src={path} alt="Pizza" />
+      <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
       <h4 className="pizza-block__title">{name}</h4>
       <div className="pizza-block__selector">
         <ul>
-          <li className="active">тонкое</li>
-          <li>традиционное</li>
+          {typesName.map((el, i) => (
+            <li
+              onClick={() => setSelectItemTypes(i)}
+              // Либа для созданий условий для className
+              className={classNames({
+                active: itemActiveTypes === i,
+                disabled: !types.includes(i),
+              })}
+              key={`${el}_${i}`}>
+              {el}
+            </li>
+          ))}
         </ul>
         <ul>
-          <li className="active">26 см.</li>
-          <li>30 см.</li>
-          <li>40 см.</li>
+          {availableSizes.map((size, i) => (
+            <li
+              onClick={() => setSelectItemSize(i)}
+              className={classNames({
+                active: itemActiveSize === i,
+                disabled: !sizes.includes(size),
+              })}
+              key={`sizes_${i}`}>
+              {size} см.
+            </li>
+          ))}
         </ul>
       </div>
       <div className="pizza-block__bottom">
@@ -38,4 +71,20 @@ const PizzaBlock = ({ name, path, price }) => {
   );
 };
 
+// Проверка типов у свойств (Строгая типизация)
+PizzaBlock.propTypes = {
+  name: PropTypes.string,
+  imageUrl: PropTypes.string,
+  types: PropTypes.arrayOf(PropTypes.number),
+  sizes: PropTypes.arrayOf(PropTypes.number),
+  price: PropTypes.number,
+};
+// Подставляет дефолтные свойства в случае отсутствия их в db.json
+PizzaBlock.defaultProps = {
+  name: '---',
+  price: 0,
+  imageUrl: '',
+  types: [],
+  sizes: [],
+};
 export default PizzaBlock;

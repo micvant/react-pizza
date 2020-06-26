@@ -6,7 +6,7 @@ const CartEmpty = () => {
   return (
     <div class="cart cart--empty">
       <h2>
-        Корзина пустая{' '}
+        Корзина пустая
         <icon>
           <span role="img" aria-label="smile"></span>
           😕

@@ -17,6 +17,7 @@ const Header = (props) => {
           </div>
         </Link>
         <div className="header__cart">
+          {/* Исользование Route */}
           <Link to="/cart">
             <Button className="button--cart">
               <span>520 Р</span>
